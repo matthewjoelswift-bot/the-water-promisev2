@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Play — The Water Promise</title>
+<link rel="stylesheet" href="/styles.css"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2861634407191511" crossorigin="anonymous"></script>
+</head>
+<body>
+<canvas id="waterfx"></canvas>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="/"><span class="drop"></span> The Water Promise</a>
+    <div class="navlinks">
+      <a class="here" href="/play">Play</a><a href="/leaderboard">Leaderboard</a><a href="/missions">Missions</a><a href="/shop">Shop</a><a href="/donate">Donate</a><a href="/impact">Impact</a>
+    </div>
+    <div class="hud">
+      <div class="stat"><b id="hudCups">0</b><span>cups today</span></div>
+      <div class="stat"><b id="hudDon">$0.00</b><span>to charity: water</span></div>
+    </div>
+  </nav>
+  <div class="banner" id="ad">
+    <span class="tag">Advertisement</span>
+    <div>
+      <div class="bhead" id="adHead">Your brand here</div>
+      <div class="bsub" id="adSub">Ads refresh every run — a share funds clean water.</div>
+    </div>
+  </div>
+  <div class="pathstrip">
+    <div class="walker">
+      <svg width="46" height="50" viewBox="0 0 46 50" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="9" r="6" fill="#2b2b28"/>
+        <rect x="14" y="15" width="8" height="16" rx="3" fill="#1F5C5A"/>
+        <line class="leg" x1="18" y1="30" x2="13" y2="44" stroke="#2b2b28" stroke-width="3" stroke-linecap="round"/>
+        <line class="leg leg2" x1="18" y1="30" x2="23" y2="44" stroke="#2b2b28" stroke-width="3" stroke-linecap="round"/>
+        <line x1="22" y1="20" x2="33" y2="24" stroke="#1F5C5A" stroke-width="3" stroke-linecap="round"/>
+        <g class="pail" transform="translate(33,24)"><rect x="-4" y="0" width="10" height="9" rx="1" fill="#8a8f73"/><rect x="-4" y="0" width="10" height="4" fill="#3FA7D6"/></g>
+      </svg>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab on" data-mode="type">⌨️ Practice (adaptive)</div>
+    <div class="tab" data-mode="race">⏱️ 1-minute face-off</div>
+    <div class="tab" data-mode="word">📱 Word puzzle</div>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="card" id="typeCard">
+        <div class="eyebrow">Adaptive trail · <span id="levelLabel">level 1</span> · target <span id="targetWpm">28</span> WPM</div>
+        <div class="ptitle">Type the line</div>
+        <div class="chips" id="focusChips"><span class="chip">warming up…</span></div>
+        <div id="target"></div>
+        <input id="hidden" class="hidden-in" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+        <div class="metrics">
+          <div class="metric"><b id="mWpm">0</b><span>WPM</span></div>
+          <div class="metric"><b id="mAcc">100%</b><span>accuracy</span></div>
+          <div class="metric"><b id="mBest">0</b><span>best WPM</span></div>
+          <div class="metric"><b id="mPct">—</b><span>percentile</span></div>
+          <div class="metric"><b id="mStreak">0</b><span>streak</span></div>
+        </div>
+        <div class="debrief" id="debrief"></div>
+        <div class="cta"><button class="btn" id="startBtn">Start a run</button><span class="hint" id="typeHint">Click Start, then type. Finish the line to fund a cup.</span></div>
+      </div>
+      <div class="card" id="raceCard" style="display:none">
+        <div class="eyebrow">60-second face-off</div>
+        <div class="ptitle">Type as many words as you can in 60s</div>
+        <div class="chips" id="raceChallenge"></div>
+        <div id="raceTarget"></div>
+        <input id="raceHidden" class="hidden-in" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+        <div class="metrics">
+          <div class="metric"><b id="rTime">60</b><span>seconds left</span></div>
+          <div class="metric"><b id="rWords">0</b><span>words</span></div>
+          <div class="metric"><b id="rWpm">0</b><span>WPM</span></div>
+          <div class="metric"><b id="rCups">0</b><span>cups this race</span></div>
+        </div>
+        <div class="cta"><button class="btn" id="raceBtn">Start face-off</button><button class="btn ghost" id="shareBtn" style="display:none">Challenge a friend</button><span class="hint" id="raceHint">Beat the clock. Each finished word funds a cup.</span></div>
+      </div>
+      <div class="card" id="wordCard" style="display:none">
+        <div class="eyebrow">Daily drop · builds spelling & word recall</div>
+        <div class="ptitle">Guess the word — fund a cup</div>
+        <p class="hint" style="margin:0 0 10px">Find the hidden 5-letter word in 6 guesses. <b style="color:var(--good)">Green</b> = right letter, right spot · <b style="color:var(--sun)">yellow</b> = right letter, wrong spot · grey = not in the word.</p>
+        <div class="wg" id="wgrid"></div>
+        <div class="kb" id="kb"></div>
+        <div class="def" id="def"></div>
+        <div class="hint" id="wordHint" style="margin-top:8px">Type or tap. 5 letters, 6 tries. Solve to fund a cup.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="eyebrow">Your well today</div>
+        <div class="bucket-wrap" style="margin:10px 0 4px">
+          <div class="bucket"><div class="fill" id="fill"></div></div>
+          <div>
+            <div class="big-cups" id="railCups">0</div>
+            <small style="color:var(--muted)">cups carried</small>
+            <div class="milestone" id="mileTxt">0 / 60 cups — one person’s water for a day</div>
+            <div class="prog"><i id="mileBar"></i></div>
+          </div>
+        </div>
+        <div style="font-size:13px;color:var(--muted);margin-top:8px">People-days funded: <b id="peopleDays" style="color:var(--ink)">0</b></div>
+      </div>
+      <div class="card auth" style="margin-top:16px;padding:16px">
+        <div class="eyebrow">Your account</div>
+        <div id="authBox">
+          <div class="hint" style="margin:2px 0 4px">Sign in to save your streak &amp; stats across devices.</div>
+          <input id="authEmail" type="email" placeholder="you@email.com"/>
+          <input id="authPw" type="password" placeholder="password (6+ characters)"/>
+          <div class="row"><button class="btn" id="loginBtn">Log in</button><button class="btn ghost" id="signupBtn">Sign up</button></div>
+          <div class="authmsg" id="authMsg"></div>
+        </div>
+        <div id="acctBox" style="display:none">
+          <div class="hint">Signed in as <b id="acctEmail"></b></div>
+          <div class="savebox" style="margin-top:8px">
+            <input id="lbName" maxlength="20" placeholder="Your name on the board"/>
+            <button class="btn" id="saveBtn" style="padding:9px 16px">Save my run</button>
+          </div>
+          <div class="savemsg" id="saveMsg" style="margin-top:6px"></div>
+          <div class="row" style="margin-top:8px"><a class="hint" href="/leaderboard">Live leaderboard →</a> <button class="btn ghost" id="logoutBtn" style="padding:6px 12px;font-size:12px">Log out</button></div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px;padding:16px">
+        <div class="eyebrow">Why it’s true</div>
+        <p class="note" style="margin:6px 0 0">$1 → 1,100 liters → ~4,400 cups. One cup ≈ $0.00023, funded by the ad your run refreshed. <a href="/impact">See the math →</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div>© 2026 The Water Promise · prototype, no money moving in the game</div>
+    <div><a href="/how">How it works</a><a href="/milestones">Milestones</a><a href="/about">About</a><a href="/privacy">Privacy</a></div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

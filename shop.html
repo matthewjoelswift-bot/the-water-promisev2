@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shop — The Water Promise</title>
+<link rel="stylesheet" href="/styles.css"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2861634407191511" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="/"><span class="drop"></span> The Water Promise</a>
+    <div class="navlinks"><a href="/play">Play</a><a href="/leaderboard">Leaderboard</a><a href="/missions">Missions</a><a class="here" href="/shop">Shop</a><a href="/donate">Donate</a><a href="/impact">Impact</a></div>
+  </nav>
+  <div style="padding:20px 0 4px">
+    <div class="eyebrow">The Promise Atlas</div>
+    <h1>Objects for the long way home.</h1>
+    <p class="lead">Original pieces that turn a shared water story into useful art for the everyday. A working preview — checkout opens once our Stripe shop is live.</p>
+  </div>
+  <div class="prod">
+    <div class="p"><div class="pn">Route Tee</div><div class="pp">$28</div><button class="buy" data-p="Route Tee">Add to bag</button></div>
+    <div class="p"><div class="pn">The Long Way Home Hoodie</div><div class="pp">$64</div><button class="buy" data-p="Hoodie">Add to bag</button></div>
+    <div class="p"><div class="pn">Field Bottle</div><div class="pp">$32</div><button class="buy" data-p="Field Bottle">Add to bag</button></div>
+    <div class="p"><div class="pn">The Gathering Mug</div><div class="pp">$26</div><button class="buy" data-p="Mug">Add to bag</button></div>
+    <div class="p"><div class="pn">Wayfinder Market Tote</div><div class="pp">$34</div><button class="buy" data-p="Tote">Add to bag</button></div>
+    <div class="p"><div class="pn">The Open Route Journal</div><div class="pp">$22</div><button class="buy" data-p="Journal">Add to bag</button></div>
+  </div>
+  <div class="note" id="shopMsg" style="margin-top:12px">Before sales open, we'll publish materials, fulfillment timing, return terms, and exactly how proceeds are handled.</div>
+  <div class="footer"><div>© 2026 The Water Promise · a project of The Little Tree Company</div><div><a href="/play">Play</a><a href="/donate">Donate</a><a href="/privacy">Privacy</a></div></div>
+</div>
+<script>
+document.querySelectorAll('.buy').forEach(b=>b.onclick=()=>{document.getElementById('shopMsg').textContent='“'+b.dataset.p+'” noted — checkout opens when our Stripe shop goes live. Want to help now? Visit Donate.';});
+</script>
+</body>
+</html>

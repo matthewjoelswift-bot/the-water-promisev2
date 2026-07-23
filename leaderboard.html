@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Leaderboard — The Water Promise</title>
+<link rel="stylesheet" href="/styles.css"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2861634407191511" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a class="brand" href="/"><span class="drop"></span> The Water Promise</a>
+    <div class="navlinks"><a href="/play">Play</a><a class="here" href="/leaderboard">Leaderboard</a><a href="/missions">Missions</a><a href="/shop">Shop</a><a href="/donate">Donate</a><a href="/impact">Impact</a></div>
+  </nav>
+  <div style="padding:20px 0 4px">
+    <div class="eyebrow">Live · every route adds up</div>
+    <h1>Top carriers.</h1>
+    <p class="lead">This board is <b>live</b> — real scores saved from the game, updating as people play. Add yourself from the <a href="/play">Play</a> page.</p>
+  </div>
+  <div class="card">
+    <table class="lb" id="lbTable"><thead><tr><th>#</th><th>Name</th><th>Best WPM</th><th>Cups</th><th>Streak</th></tr></thead>
+    <tbody id="lbBody"><tr><td colspan="5" class="note">Loading the live board…</td></tr></tbody></table>
+  </div>
+  <p class="note" style="margin-top:10px">Ranked by cups carried. Prototype: anyone can add a name for now; real accounts and anti-cheat come with the full backend.</p>
+  <div class="footer"><div>© 2026 The Water Promise · a project of The Little Tree Company</div><div><a href="/play">Play</a><a href="/impact">Impact</a><a href="/privacy">Privacy</a></div></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+const SB_URL='https://kyqoqwqamambrgtkcoeu.supabase.co', SB_KEY='sb_publishable_6dZCsMCymIGrbhvmbYAZ6w_Y9uxsoKa';
+(async()=>{
+  try{
+    const c=window.supabase.createClient(SB_URL,SB_KEY);
+    const {data,error}=await c.from('wp_scores').select('*').order('cups',{ascending:false}).limit(20);
+    if(error) throw error;
+    const b=document.getElementById('lbBody');
+    b.innerHTML = (data&&data.length)? data.map((r,i)=>'<tr><td>'+(i+1)+'</td><td class="nm">'+esc(r.username)+'</td><td>'+r.best_wpm+'</td><td>'+Number(r.cups).toLocaleString()+'</td><td>'+r.streak+'-day</td></tr>').join('') : '<tr><td colspan="5" class="note">No scores yet — be the first from the Play page.</td></tr>';
+  }catch(e){ document.getElementById('lbBody').innerHTML='<tr><td colspan="5" class="note">Could not load the board right now.</td></tr>'; }
+  function esc(s){return String(s).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));}
+})();
+</script>
+</body>
+</html>
