@@ -1,37 +1,43 @@
 # The Water Promise
 
-A typing-speed game that funds clean water. Finish a run → an ad refreshes → a share of the ad revenue funds a cup of clean water through charity: water. **One run, one cup.**
+A typing-speed game that funds clean water. Play a round, an ad refreshes, and a share of that revenue funds a real cup of clean water through charity: water. Get faster; someone gets water. **One run, one cup.**
 
-Live: the-water-promise.vercel.app · A project of **The Little Tree Company, LLC**.
+**Live site:** https://the-water-promise.vercel.app
+A project of **The Little Tree Company, LLC**.
 
-## What's here (static prototype)
-- `/` landing · `/play` the game · `/impact` charity + the math · `/how` how it works + word-puzzle rules
-- `styles.css` shared design system · `app.js` game logic + canvas water physics
-- Three modes: **adaptive typing** (desktop), **1-minute face-off**, **word puzzle** (mobile)
+## Auto-deploy
 
-This is the front-end prototype. Accounts, saved stats, real ads, and live donations come next (see Roadmap).
+This repo is connected to Vercel. **Any commit pushed to `main` deploys itself** to the live site — no manual steps. Edit a file, commit, and it's live in about a minute.
 
-## Stack (current + planned)
-- **Now:** static HTML/CSS/JS, deployed on **Vercel** (project `the-water-promise`, team `matthewjoelswift-bots-projects`).
-- **Next:** rebuild as **Next.js + Supabase** (Postgres + Auth) for accounts, saved WPM history, leaderboards, and server-validated rounds; **Stripe** for donations/merch; a **donations API** (Change/Pledge) to auto-remit to charity: water.
+## How it's built
 
-## Infra & accounts (memory — where things live)
-- **GitHub:** repo under `matthewjoelswift-bot`. This is the source of truth + history for Codex.
-- **Vercel:** team `matthewjoelswift-bots-projects`; project `the-water-promise`.
-- **Cloudflare:** Little Tree Co has an account/API token (Matthew holds it). Not required for the Vercel path; noted here so it's not forgotten.
-- **Stripe:** Little Tree Co Stripe exists. Secret keys are set in the Vercel project's Environment Variables by a human — never committed to this repo.
-- **Ads:** Google AdSense account (Little Tree Co) — banners once the site is approved. Rewarded video via a game network (AdinPlay) later. (AppLixir needs 100k monthly impressions — not yet.)
-- **Charity:** an official **charity: water fundraising campaign** (pending) is the legal, transparent way to route giving and use their name.
+Plain static site — HTML, CSS, and one JavaScript file. No framework, no build step. Open `index.html` in a browser and it just runs.
 
-## Deploy
-Static — Vercel serves it as-is (`vercel.json` sets clean URLs). Pushing to the connected GitHub repo auto-deploys once Vercel is linked to it.
+- `index.html` — home
+- `play.html` + `app.js` — the game: adaptive typing coach, 1-minute face-off, mobile word puzzle, the canvas water-pour animation, plus live accounts and leaderboard
+- `impact.html`, `how.html`, `about.html`, `missions.html`, `milestones.html`, `shop.html`, `donate.html`, `leaderboard.html` — the rest of the pages
+- `privacy.html` — privacy policy (required for Google AdSense)
+- `styles.css` — all styling
+- `vercel.json` — tells Vercel to serve this as a static site (no framework build)
 
-## Roadmap
-1. Next.js + Supabase rebuild with accounts, saved stats, opt-in leaderboard.
-2. Adaptive engine v2 (per-key latency, SM-2 spaced repetition) — see the learning-science design doc.
-3. Stripe donations + merch; donations-API auto-remit; live transparency ledger.
-4. AdSense banners live → rewarded video → tuning.
-5. A/B experiment framework (log everything; improve over time).
+## Run it locally
+
+No install needed. Open `index.html` directly, or serve the folder:
+
+```
+python3 -m http.server 8000
+```
+
+Then visit http://localhost:8000.
+
+## Backend
+
+Accounts and the live leaderboard use **Supabase** (the keys in `app.js` are public "publishable" keys, safe to expose — the database is protected by row-level security). Donations go directly to **charity: water**; **Stripe** handles any payments. The exact setup steps live in the handoff package (the "Money Rails" guide).
+
+## Editing with Codex
+
+There's a full build spec in the handoff package you can paste into Codex to rebuild or extend the whole thing.
 
 ## Principles
-Honest by construction: "cups" is a storytelling unit for dollars raised; charity: water delivers the water. No false impact claims. Public counters show donations only, never our cut.
+
+Honest by construction: "cups" is a storytelling unit for dollars raised; charity: water delivers the actual water. No false impact claims. Public counters show donations only, never our cut.
